@@ -12,4 +12,4 @@ import 'package:notetake/note/domain/usecases/note_use_case.dart';
 // });
 
 
-final noteRepositoryProvider = StateNotifierProvider<NoteRepositoryImpl, List<NoteEntity>>((ref) => NoteRepositoryImpl());
+final noteRepositoryProvider = StateNotifierProvider<PersonalNoteRepositoryImpl, List<NoteEntity>>((ref) => PersonalNoteRepositoryImpl());
