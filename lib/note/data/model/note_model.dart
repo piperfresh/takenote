@@ -4,7 +4,7 @@ class NoteModel extends NoteEntity {
   NoteModel({
     String? title,
     String? description,
-    DateTime? dateTime,
+    String? dateTime,
     String? id,
   }) : super(
           title: title,

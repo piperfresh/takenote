@@ -4,7 +4,7 @@ class NoteEntity extends Equatable {
   String? id;
   String? title;
   String? description;
-  DateTime? dateTime;
+  String? dateTime;
 
   NoteEntity({
     this.title,

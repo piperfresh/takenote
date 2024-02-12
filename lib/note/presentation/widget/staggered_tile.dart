@@ -5,10 +5,10 @@ class StaggerTile extends StatefulWidget {
     Key? key,
     required this.title,
     required this.description,
+    required this.dateTime,
   }) : super(key: key);
 
-  final String title;
-  final String description;
+  final String title, description, dateTime;
 
   @override
   State<StaggerTile> createState() => _StaggerTileState();
@@ -50,6 +50,14 @@ class _StaggerTileState extends State<StaggerTile> {
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w400),
                 ),
+                const SizedBox(
+                  height: 7,
+                ),
+                Text(
+                  widget.dateTime,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w400),
+                )
               ],
             )
           ],

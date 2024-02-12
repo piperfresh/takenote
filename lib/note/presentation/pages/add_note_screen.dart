@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:notetake/note/domain/entities/note_entity.dart';
 import 'package:notetake/note/presentation/provider/use_case_provider.dart';
 
@@ -65,10 +66,11 @@ class _AddNoteScreenState extends ConsumerState<AddNoteScreen> {
           final newNote = NoteEntity(
             title: _titleTextEditingController.text,
             description: _descriptionTextEditingController.text,
-            dateTime: DateTime.now(),
+            dateTime: DateFormat('dd-MM-yyyy').format(DateTime.now())
           );
          ref.read(noteRepositoryProvider.notifier).addNote(newNote);
           Navigator.pop(context);
+          print(_descriptionTextEditingController.text.length);
         },
         child: Container(
           height: 50,

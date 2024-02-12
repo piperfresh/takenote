@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 import 'package:notetake/note/presentation/pages/add_note_screen.dart';
 import 'package:notetake/note/presentation/provider/use_case_provider.dart';
 
@@ -34,13 +33,16 @@ class HomeScreen extends StatelessWidget {
                     // to display different size of tile
                     staggeredTileBuilder: (index) {
                       final note = notes[index];
-                      final descriptionLength = note.description!.length;
+                      final descriptionLength = note.description?.trim().length;
 
-                      double tileHeight = descriptionLength > 140
-                          ? 220
-                          : descriptionLength.toDouble() + 100;
-
-                      log('This is the tile $tileHeight');
+                      double tileHeight = descriptionLength! > 110
+                          ? 240
+                          // : descriptionLength.toDouble()  + note.dateTime!.length + 85;
+                          : descriptionLength < 25
+                              ? descriptionLength.toDouble() + 75
+                              : descriptionLength.toDouble() +
+                                  note.dateTime!.length +
+                                  85;
                       return StaggeredTile.extent(
                           (index % 2 == 0) ? 1 : 1, tileHeight);
                     },
@@ -66,6 +68,8 @@ class HomeScreen extends StatelessWidget {
                         child: StaggerTile(
                           title: note.title!,
                           description: note.description!,
+                          dateTime:
+                              DateFormat('dd-MM-yyyy').format(DateTime.now()),
                         ),
                       );
                     },

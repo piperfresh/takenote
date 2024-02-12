@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../domain/entities/note_entity.dart';
 import '../provider/use_case_provider.dart';
@@ -74,7 +75,7 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
           final editedNote = NoteEntity(
             title: _titleTextEditingController.text,
             description: _descriptionTextEditingController.text,
-            dateTime: DateTime.now(), // Update the timestamp if needed
+            dateTime: DateFormat('dd-MM-yyyy').format(DateTime.now()) // Update the timestamp if needed
           );
           ref.read(noteRepositoryProvider.notifier).editNote(editedNote, widget.noteIndex);
           Navigator.pop(context);
