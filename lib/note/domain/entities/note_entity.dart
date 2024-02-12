@@ -15,7 +15,7 @@ class NoteEntity extends Equatable {
 
   // Convert NoteEntity to a Map
   Map<String, dynamic> toJson() {
-    return {'title': title, 'description': description};
+    return {'title': title, 'description': description, 'dateTime': dateTime, 'id': id};
   }
 
   // Create a NoteEntity from a Map
@@ -23,6 +23,8 @@ class NoteEntity extends Equatable {
     return NoteEntity(
       title: json['title'] ?? '',
       description: json['description'] ?? '',
+      id: json['id'] ?? '',
+      dateTime: json['dateTime'] ?? '',
     );
   }
 

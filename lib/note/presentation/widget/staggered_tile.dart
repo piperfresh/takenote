@@ -19,7 +19,8 @@ class _StaggerTileState extends State<StaggerTile> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.blue,
+        // color: Color(0xffe9e9f2),
+        color: Color(0xffe9e9f2),
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),
@@ -40,7 +41,9 @@ class _StaggerTileState extends State<StaggerTile> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
+                    fontWeight: FontWeight.bold, fontSize: 18,
+                    // color: Color(0xff644366),
+                  ),
                 ),
                 Text(
                   widget.description,
@@ -48,7 +51,10 @@ class _StaggerTileState extends State<StaggerTile> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 7,
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w400),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff7f607c),
+                  ),
                 ),
                 const SizedBox(
                   height: 7,

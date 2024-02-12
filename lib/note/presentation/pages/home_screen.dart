@@ -33,16 +33,21 @@ class HomeScreen extends StatelessWidget {
                     // to display different size of tile
                     staggeredTileBuilder: (index) {
                       final note = notes[index];
-                      final descriptionLength = note.description?.trim().length;
+                      final descriptionLength = note.description?.length;
 
                       double tileHeight = descriptionLength! > 110
                           ? 240
-                          // : descriptionLength.toDouble()  + note.dateTime!.length + 85;
-                          : descriptionLength < 25
-                              ? descriptionLength.toDouble() + 75
-                              : descriptionLength.toDouble() +
-                                  note.dateTime!.length +
-                                  85;
+                          : descriptionLength > 50 && descriptionLength < 89
+                              ? descriptionLength.toDouble() + 110
+                              : descriptionLength > 90
+                                  ? descriptionLength.toDouble() + 120
+                                  : descriptionLength > 18
+                                      ? descriptionLength.toDouble() + 100
+                                      : descriptionLength < 10
+                                          ? descriptionLength.toDouble() + 95
+                                          : descriptionLength.toDouble() +
+                                              note.dateTime!.length +
+                                              85;
                       return StaggeredTile.extent(
                           (index % 2 == 0) ? 1 : 1, tileHeight);
                     },
