@@ -3,13 +3,16 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:notetake/core/enums.dart';
 
 import '../../domain/entities/note_entity.dart';
 import '../provider/use_case_provider.dart';
 
 class EditNoteScreen extends ConsumerStatefulWidget {
   final int noteIndex;
-  const EditNoteScreen({super.key, required this.noteIndex});
+  ScreenType? screenType;
+
+  EditNoteScreen({super.key, required this.noteIndex, this.screenType});
 
   @override
   ConsumerState<EditNoteScreen> createState() => _EditNoteScreenState();
@@ -23,7 +26,36 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
   @override
   void initState() {
     super.initState();
-    originalNote = ref.read(noteRepositoryProvider.notifier).state[widget.noteIndex];
+    switch (widget.screenType) {
+      case ScreenType.personalNote:
+        originalNote = ref
+            .read(personalNoteRepositoryProvider.notifier)
+            .state[widget.noteIndex];
+        break;
+      case ScreenType.academicNote:
+        originalNote = ref
+            .read(academicNoteRepositoryProvider.notifier)
+            .state[widget.noteIndex];
+        break;
+      case ScreenType.workNote:
+        originalNote = ref
+            .read(workNoteRepositoryProvider.notifier)
+            .state[widget.noteIndex];
+        break;
+      // Add more cases if needed for other ScreenType values
+      case ScreenType.othersNote:
+        originalNote = ref
+            .read(othersNoteRepositoryProvider.notifier)
+            .state[widget.noteIndex];
+        break;
+      default:
+        // Handle default case if necessary
+        break;
+    }
+
+    // originalNote = ref
+    //     .read(personalNoteRepositoryProvider.notifier)
+    //     .state[widget.noteIndex];
     _titleTextEditingController.text = originalNote.title!;
     _descriptionTextEditingController.text = originalNote.description!;
   }
@@ -73,11 +105,37 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
           log('title ${_titleTextEditingController.text}');
           log('description ${_descriptionTextEditingController.text}');
           final editedNote = NoteEntity(
-            title: _titleTextEditingController.text,
-            description: _descriptionTextEditingController.text,
-            dateTime: DateFormat('dd-MM-yyyy').format(DateTime.now()) // Update the timestamp if needed
-          );
-          ref.read(noteRepositoryProvider.notifier).editNote(editedNote, widget.noteIndex);
+              title: _titleTextEditingController.text,
+              description: _descriptionTextEditingController.text,
+              dateTime: DateFormat('dd-MM-yyyy')
+                  .format(DateTime.now()) // Update the timestamp if needed
+              );
+          switch (widget.screenType) {
+            case ScreenType.personalNote:
+              ref
+                  .read(personalNoteRepositoryProvider.notifier)
+                  .editNote(editedNote, widget.noteIndex);
+              break;
+            case ScreenType.academicNote:
+              ref
+                  .read(academicNoteRepositoryProvider.notifier)
+                  .editNote(editedNote, widget.noteIndex);
+              break;
+            case ScreenType.workNote:
+              ref
+                  .read(workNoteRepositoryProvider.notifier)
+                  .editNote(editedNote, widget.noteIndex);
+              break;
+            // Add more cases if needed for other ScreenType values
+            case ScreenType.othersNote:
+              ref
+                  .read(othersNoteRepositoryProvider.notifier)
+                  .editNote(editedNote, widget.noteIndex);
+            default:
+              // Handle default case if necessary
+              break;
+          }
+
           Navigator.pop(context);
         },
         child: Container(

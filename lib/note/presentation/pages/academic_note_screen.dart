@@ -3,32 +3,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:notetake/core/enums.dart';
+import 'package:notetake/note/presentation/provider/use_case_provider.dart';
 
-import '../provider/use_case_provider.dart';
 import '../widget/staggered_tile.dart';
 import 'add_note_screen.dart';
 import 'edit_note_screen.dart';
 
-class PersonalNoteScreen extends StatefulWidget {
-  const PersonalNoteScreen({super.key});
+class AcademicNoteScreen extends StatefulWidget {
+  const AcademicNoteScreen({super.key});
 
   @override
-  State<PersonalNoteScreen> createState() => _PersonalNoteScreenState();
+  State<AcademicNoteScreen> createState() => _AcademicNoteScreenState();
 }
 
-class _PersonalNoteScreenState extends State<PersonalNoteScreen> {
+class _AcademicNoteScreenState extends State<AcademicNoteScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('Personal'),
+        title: const Text('Academic'),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer(
           builder: (context, ref, child) {
-            final notes = ref.watch(personalNoteRepositoryProvider);
+            final notes = ref.watch(academicNoteRepositoryProvider);
             return notes.isEmpty
                 ? const Center(child: Text('No Note Yet'))
                 : Padding(
@@ -70,14 +70,14 @@ class _PersonalNoteScreenState extends State<PersonalNoteScreen> {
                               MaterialPageRoute(
                                 builder: (context) => EditNoteScreen(
                                   noteIndex: index,
-                                  screenType: ScreenType.personalNote,
+                                  screenType: ScreenType.academicNote,
                                 ),
                               ),
                             );
                           },
                           onLongPress: () {
                             ref
-                                .read(personalNoteRepositoryProvider.notifier)
+                                .read(academicNoteRepositoryProvider.notifier)
                                 .deleteNote(index);
                           },
                           child: StaggerTile(
@@ -98,7 +98,7 @@ class _PersonalNoteScreenState extends State<PersonalNoteScreen> {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
               return AddNoteScreen(
-                screenType: ScreenType.personalNote,
+                screenType: ScreenType.academicNote,
               );
             },
           ));

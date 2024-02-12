@@ -1,15 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notetake/note/data/repository/note_repository_impl.dart';
+import 'package:notetake/note/data/repository/academic_note_repository_impl.dart';
+import 'package:notetake/note/data/repository/others_note_repository_impl.dart';
+import 'package:notetake/note/data/repository/personal_note_repository_impl.dart';
+import 'package:notetake/note/data/repository/work_note_repository_impl.dart';
 import 'package:notetake/note/domain/entities/note_entity.dart';
-import 'package:notetake/note/domain/repository/note_repository.dart';
-import 'package:notetake/note/domain/usecases/note_use_case.dart';
-
-// final noteRepositoryProvider = Provider<NoteRepository>((ref) => NoteRepositoryImpl());
-//
-//
-// final noteUseCaseProvider = Provider<NoteUseCase>((ref) {
-//   return NoteUseCase(noteRepository: ref.read(noteRepositoryProvider));
-// });
 
 
-final noteRepositoryProvider = StateNotifierProvider<PersonalNoteRepositoryImpl, List<NoteEntity>>((ref) => PersonalNoteRepositoryImpl());
+final personalNoteRepositoryProvider =
+    StateNotifierProvider<PersonalNoteRepositoryImpl, List<NoteEntity>>(
+        (ref) => PersonalNoteRepositoryImpl());
+final academicNoteRepositoryProvider =
+    StateNotifierProvider<AcademicNoteRepositoryImpl, List<NoteEntity>>(
+        (ref) => AcademicNoteRepositoryImpl());
+final workNoteRepositoryProvider =
+    StateNotifierProvider<WorkNoteRepositoryImpl, List<NoteEntity>>(
+        (ref) => WorkNoteRepositoryImpl());
+final othersNoteRepositoryProvider =
+    StateNotifierProvider<OthersNoteRepositoryImpl, List<NoteEntity>>(
+        (ref) => OthersNoteRepositoryImpl());
